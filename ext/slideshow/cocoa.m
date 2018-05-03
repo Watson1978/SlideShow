@@ -121,4 +121,3 @@ void Init_cocoa(void)
     sym_movein = ID2SYM(rb_intern("move_in"));
     sym_reveal = ID2SYM(rb_intern("reveal"));
 }
- 

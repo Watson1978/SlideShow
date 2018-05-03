@@ -3,12 +3,15 @@
 
 // 内部用
 @interface AppDelegate ()
+
 @property (nonatomic) SlideShowView *slideShowView;
 @property (nonatomic) NSMutableArray<NSImage*> *photos;
 @property (nonatomic) BOOL isBlank;
+
 @end
 
 @implementation AppDelegate
+
 - (instancetype)init {
     if (self = [super init]) {
         self.interval = 5.0;
@@ -57,4 +60,5 @@
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     exit(0);
 }
+
 @end
