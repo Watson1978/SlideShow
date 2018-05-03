@@ -30,19 +30,21 @@
     if ([self.paths count]) {
         self.photos = NSMutableArray.new;
 
+        __weak __typeof(self) wself = self;
         for (NSURL *url in self.paths) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSImage *photo = [[NSImage alloc] initWithContentsOfURL:url];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.photos addObject:photo];
-                    if (![self.slideShowView isViewing]) {
-                        [self.slideShowView transitionToImage:photo];
+                    if (!wself) { return; }
+
+                    [wself.photos addObject:photo];
+                    if (![wself.slideShowView isViewing]) {
+                        [wself.slideShowView transitionToImage:photo];
                     }
                 });
             });
         }
 
-        __weak __typeof(self) wself = self;
         [NSTimer scheduledTimerWithTimeInterval:self.interval repeats:YES block: ^(NSTimer *timer) {
             if (!wself) { return; }
             if (wself.photos.count == 0) { return; }
