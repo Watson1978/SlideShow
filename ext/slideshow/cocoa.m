@@ -20,7 +20,7 @@ application_initialize(VALUE recv)
     AppDelegate *delegate = AppDelegate.new;
     app.delegate = delegate;
 
-    NSWindow *window = [[NSWindow alloc] initWithContentRect: NSMakeRect(0, 0, 640, 480)
+    NSWindow *window = [[NSWindow alloc] initWithContentRect: NSMakeRect(400, 200, 800, 600)
                                                    styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable|NSWindowStyleMaskResizable
                                                      backing: NSBackingStoreBuffered
                                                        defer: NO];
