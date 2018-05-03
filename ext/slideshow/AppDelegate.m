@@ -16,8 +16,7 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    self.imageView = [[NSImageView alloc] init];
-    self.imageView.frame = self.window.contentView.bounds;
+    self.imageView = [[NSImageView alloc] initWithFrame:self.window.contentView.bounds];
     self.imageView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
     [self.window.contentView addSubview:self.imageView];
 
