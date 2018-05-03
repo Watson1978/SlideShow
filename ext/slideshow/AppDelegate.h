@@ -7,6 +7,7 @@
 
 @property (nonatomic, retain) NSWindow *window;
 @property (nonatomic, copy) NSArray<NSURL*> *paths;
+@property (nonatomic, copy) NSString *transition;
 @property (nonatomic) NSTimeInterval interval;
 
 @end

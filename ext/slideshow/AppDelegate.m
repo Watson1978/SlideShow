@@ -19,7 +19,9 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     self.slideShowView = [[SlideShowView alloc] initWithFrame:self.window.contentView.bounds];
     self.slideShowView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
-    [self.slideShowView setupTransition:kCATransitionFade];
+    if (self.transition) {
+        [self.slideShowView setupTransition:self.transition];
+    }
     [self.window.contentView addSubview:self.slideShowView];
 
     if ([self.paths count]) {

@@ -1,10 +1,12 @@
 #import <ruby.h>
+#import <Quartz/Quartz.h>
 #import "AppDelegate.h"
 
 //----------------------------------------
 // Ruby メソッドの実装
 //----------------------------------------
 static VALUE rb_cApplication;
+static VALUE sym_fade, sym_movein, sym_reveal;
 
 // Rubyの文字列を NSString に変換する
 static NSString *
@@ -78,6 +80,25 @@ application_interval(VALUE recv, VALUE interval)
 }
 
 static VALUE
+application_transition(VALUE recv, VALUE transition)
+{
+    NSApplication *app = [NSApplication sharedApplication];
+    AppDelegate *delegate = app.delegate;
+
+    if (transition == sym_fade) {
+        delegate.transition = kCATransitionFade;
+    } else if (transition == sym_movein) {
+        delegate.transition = kCATransitionMoveIn;
+    } else if (transition == sym_reveal) {
+        delegate.transition = kCATransitionReveal;
+    } else {
+        rb_raise(rb_eArgError, "Unknown transition");
+    }
+
+    return recv;
+}
+
+static VALUE
 application_run(VALUE recv)
 {
     NSApplication *app = [NSApplication sharedApplication];
@@ -93,6 +114,11 @@ void Init_cocoa(void)
     rb_define_method(rb_cApplication, "title=", application_title, 1);
     rb_define_method(rb_cApplication, "photo_paths=", application_photo_paths, 1);
     rb_define_method(rb_cApplication, "interval=", application_interval, 1);
+    rb_define_method(rb_cApplication, "transition=", application_transition, 1);
     rb_define_method(rb_cApplication, "run", application_run, 0);
+
+    sym_fade = ID2SYM(rb_intern("fade"));
+    sym_movein = ID2SYM(rb_intern("move_in"));
+    sym_reveal = ID2SYM(rb_intern("reveal"));
 }
  
