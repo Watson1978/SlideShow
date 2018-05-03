@@ -1,4 +1,5 @@
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 #import <AppKit/AppKit.h>
 
 // Ruby とやり取りするためのインタフェース

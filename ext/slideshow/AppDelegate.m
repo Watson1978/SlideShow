@@ -1,8 +1,9 @@
 #import "AppDelegate.h"
+#import "SlideShowView.h"
 
 // 内部用
 @interface AppDelegate ()
-@property (nonatomic, retain) NSImageView *imageView;
+@property (nonatomic) SlideShowView *slideShowView;
 @property (nonatomic) NSMutableArray<NSImage*> *photos;
 @property (nonatomic) BOOL isBlank;
 @end
@@ -16,9 +17,10 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    self.imageView = [[NSImageView alloc] initWithFrame:self.window.contentView.bounds];
-    self.imageView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
-    [self.window.contentView addSubview:self.imageView];
+    self.slideShowView = [[SlideShowView alloc] initWithFrame:self.window.contentView.bounds];
+    self.slideShowView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
+    [self.slideShowView setupTransition:kCATransitionFade];
+    [self.window.contentView addSubview:self.slideShowView];
 
     if ([self.paths count]) {
         self.photos = NSMutableArray.new;
@@ -28,8 +30,8 @@
                 NSImage *photo = [[NSImage alloc] initWithContentsOfURL:url];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.photos addObject:photo];
-                    if (self.imageView.image == nil) {
-                        self.imageView.image = photo;
+                    if (![self.slideShowView isViewing]) {
+                        [self.slideShowView transitionToImage:photo];
                     }
                 });
             });
@@ -41,7 +43,7 @@
             if (wself.photos.count == 0) { return; }
 
             int index = rand() % wself.photos.count;
-            wself.imageView.image = wself.photos[index];
+            [wself.slideShowView transitionToImage:wself.photos[index]];
         }];
     }
 }
