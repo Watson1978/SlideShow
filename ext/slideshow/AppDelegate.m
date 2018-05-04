@@ -14,6 +14,14 @@
 
 - (instancetype)init {
     if (self = [super init]) {
+        NSWindow *window = [[NSWindow alloc] initWithContentRect: NSMakeRect(400, 200, 800, 600)
+                                                       styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable|NSWindowStyleMaskResizable
+                                                         backing: NSBackingStoreBuffered
+                                                           defer: NO];
+        [window display];
+        [window orderFrontRegardless];
+        self.window = window;
+
         self.interval = 5.0;
     }
     return self;

@@ -21,14 +21,6 @@ application_initialize(VALUE recv)
     NSApplication *app = [NSApplication sharedApplication];
     AppDelegate *delegate = AppDelegate.new;
     app.delegate = delegate;
-
-    NSWindow *window = [[NSWindow alloc] initWithContentRect: NSMakeRect(400, 200, 800, 600)
-                                                   styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable|NSWindowStyleMaskResizable
-                                                     backing: NSBackingStoreBuffered
-                                                       defer: NO];
-    [window display];
-    [window orderFrontRegardless];
-    delegate.window = window;
     return recv;
 }
 
