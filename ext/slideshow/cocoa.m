@@ -18,17 +18,15 @@ convert_to_nsstring(VALUE string)
 static VALUE
 application_initialize(VALUE recv)
 {
-    NSApplication *app = [NSApplication sharedApplication];
     AppDelegate *delegate = AppDelegate.new;
-    app.delegate = delegate;
+    [NSApp setDelegate:delegate];
     return recv;
 }
 
 static VALUE
 application_title(VALUE recv, VALUE title)
 {
-    NSApplication *app = [NSApplication sharedApplication];
-    AppDelegate *delegate = app.delegate;
+    AppDelegate *delegate = [NSApp delegate];
     delegate.window.title = convert_to_nsstring(title);
     return recv;
 }
@@ -36,8 +34,7 @@ application_title(VALUE recv, VALUE title)
 static VALUE
 application_photo_paths(VALUE recv, VALUE ary)
 {
-    NSApplication *app = [NSApplication sharedApplication];
-    AppDelegate *delegate = app.delegate;
+    AppDelegate *delegate = [NSApp delegate];
     NSMutableArray<NSURL*> *paths = NSMutableArray.new;
 
     // Ruby 配列からファイルパスを取得
@@ -56,8 +53,7 @@ application_photo_paths(VALUE recv, VALUE ary)
 static VALUE
 application_interval(VALUE recv, VALUE interval)
 {
-    NSApplication *app = [NSApplication sharedApplication];
-    AppDelegate *delegate = app.delegate;
+    AppDelegate *delegate = [NSApp delegate];
 
     if (FIXNUM_P(interval)) {
         // Ruby 整数
@@ -74,8 +70,7 @@ application_interval(VALUE recv, VALUE interval)
 static VALUE
 application_transition(VALUE recv, VALUE transition)
 {
-    NSApplication *app = [NSApplication sharedApplication];
-    AppDelegate *delegate = app.delegate;
+    AppDelegate *delegate = [NSApp delegate];
 
     if (transition == sym_fade) {
         delegate.transition = kCATransitionFade;
@@ -93,8 +88,7 @@ application_transition(VALUE recv, VALUE transition)
 static VALUE
 application_run(VALUE recv)
 {
-    NSApplication *app = [NSApplication sharedApplication];
-    [app run];
+    [NSApp run];
     return recv;
 }
 
