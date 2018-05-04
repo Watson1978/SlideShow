@@ -6,7 +6,6 @@
 
 @property (nonatomic) SlideShowView *slideShowView;
 @property (nonatomic) NSMutableArray<NSImage*> *photos;
-@property (nonatomic) BOOL isBlank;
 
 @end
 
