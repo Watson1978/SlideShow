@@ -98,7 +98,7 @@ application_run(VALUE recv)
     return recv;
 }
 
-// Ruby クラスとメソッドの定義
+// Ruby クラスとメソッド、シンボルの定義
 void Init_cocoa(void)
 {
     rb_cApplication = rb_define_class("Application", rb_cObject);
@@ -109,6 +109,7 @@ void Init_cocoa(void)
     rb_define_method(rb_cApplication, "transition=", application_transition, 1);
     rb_define_method(rb_cApplication, "run", application_run, 0);
 
+    // シンボル
     sym_fade = ID2SYM(rb_intern("fade"));
     sym_movein = ID2SYM(rb_intern("move_in"));
     sym_reveal = ID2SYM(rb_intern("reveal"));

@@ -1,7 +1,6 @@
 #import "AppDelegate.h"
 #import "SlideShowView.h"
 
-// 内部用
 @interface AppDelegate ()
 
 @property (nonatomic) SlideShowView *slideShowView;
