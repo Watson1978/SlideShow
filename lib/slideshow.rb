@@ -14,7 +14,7 @@ class Application
 
   def photos=(array)
     paths = array.compact.map { |path|
-      unless path.start_with?(/https?/)
+      if !(path =~ /^https?/)
         path = "file://" + File.expand_path(path)
       end
       path
